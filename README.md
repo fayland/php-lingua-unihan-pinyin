@@ -1,6 +1,8 @@
 Pinyin
 ======
 
+[![Build Status](https://travis-ci.org/fayland/php-lingua-unihan-pinyin.svg?branch=master)](https://travis-ci.org/fayland/php-lingua-unihan-pinyin)
+
 Based on Unihan database
 
 ```php
