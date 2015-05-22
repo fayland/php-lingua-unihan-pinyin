@@ -23,6 +23,7 @@ class TestCase extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('nín hǎo', Pinyin::pinyin('您好'));
         $this->assertEquals('dài zhe xī wàng qù lǚ xíng ， bǐ dào dá zhōng diǎn gèng měi hǎo', Pinyin::pinyin('带着希望去旅行，比到达终点更美好'));
+        $this->assertEquals('cè shì R60', Pinyin::pinyin("测试R60"));
     }
 
     public function testTemporaryDelimiter() {
@@ -33,4 +34,8 @@ class TestCase extends PHPUnit_Framework_TestCase
         $this->assertEquals('nín hǎo', Pinyin::pinyin('您好'));
     }
 
+    public function testResultWithoutTone()
+    {
+        $this->assertEquals('dai zhe xi wang qu lü xing ， bi dao da zhong dian geng mei hao', Pinyin::pinyin('带着希望去旅行，比到达终点更美好', array('tone' => false)));
+    }
 }

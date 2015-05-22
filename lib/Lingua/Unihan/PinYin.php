@@ -12,8 +12,8 @@ namespace Lingua\Unihan;
 class PinYin {
     protected static $dictionary;
     protected static $settings = array(
-        'delimiter'    => ' ',
-        'accent'       => true
+        'delimiter' => ' ',
+        'tone'      => true
     );
     private static $_instance;
 
@@ -58,14 +58,18 @@ class PinYin {
         $dict = self::$dictionary;
 
         $all = array();
-        preg_match_all('/./u', $string, $matches);
+        preg_match_all('/([\x00-\x7F]+)|(.)/u', $string, $matches);
         foreach ($matches[0] as $m) {
             $m2 = strtoupper(bin2hex(iconv('UTF-8', 'UTF-16BE', $m)));
             if (isset($dict[$m2])) {
                 $xxx = $dict[$m2];
                 $zzz = mb_split('/\s+/', $xxx, 2);
                 // print "$m -> $m2 -> $xxx -> $zzz[0]\n";
-                $all[] = $zzz[0];
+                if ($settings['tone']) {
+                    $all[] = $zzz[0];
+                } else {
+                    $all[] = $instance->removeTone($zzz[0]);
+                }
             } else {
                 $all[] = $m;
             }
@@ -83,6 +87,27 @@ class PinYin {
         $m2 = bin2hex(iconv('UTF-8', 'UTF-16BE', $m));
         if (! isset($dict[$m2])) return;
 
-        return $dict[$m2];
+        if ($settings['tone']) {
+            return $dict[$m2];
+        } else {
+            return $instance->removeTone($dict[$m2]);
+        }
+    }
+
+    protected function removeTone($string)
+    {
+        $pinyin = array(
+            1 => array('ā', 'ē', 'ī', 'ō', 'ū', 'ǖ', 'Ā', 'Ē', 'Ī', 'Ō', 'Ū', 'Ǖ'),
+            2 => array('á', 'é', 'í', 'ó', 'ú', 'ǘ', 'Á', 'É', 'Í', 'Ó', 'Ú', 'Ǘ'),
+            3 => array('ǎ', 'ě', 'ǐ', 'ǒ', 'ǔ', 'ǚ', 'Ǎ', 'Ě', 'Ǐ', 'Ǒ', 'Ǔ', 'Ǚ'),
+            4 => array('à', 'è', 'ì', 'ò', 'ù', 'ǜ', 'À', 'È', 'Ì', 'Ò', 'Ù', 'Ǜ'),
+            5 => array('a', 'e', 'i', 'o', 'u', 'ü', 'A', 'E', 'I', 'O', 'U', 'Ü')
+        );
+
+        foreach (array(1, 2, 3, 4) as $i) {
+            $string = str_replace($pinyin[$i], $pinyin[5], $string);
+        }
+
+        return $string;
     }
 }
