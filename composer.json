@@ -1,0 +1,22 @@
+{
+    "name": "fayland/php-lingua-unihan-pinyin",
+    "description": "convert Chinese into pinyin with unihan database",
+    "keywords" : [ "pinyin", "unihan", "Chinese", "hanzi" ],
+    "homepage": "https://github.com/fayland/php-lingua-unihan-pinyin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fayland Lam",
+            "email": "fayland@gmail.com",
+            "homepage": "http://fayland.me/"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Lingua": "lib/" }
+    },
+
+    "require": {
+        "php": ">= 5.3",
+        "lib-iconv": "*"
+    }
+}
