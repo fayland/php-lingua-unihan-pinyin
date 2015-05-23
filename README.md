@@ -16,19 +16,15 @@ echo Pinyin::pinyin('带着希望去旅行比到达终点更美好');
 
 使用 Composer 安装:
 
-    ```
     composer require fayland/php-lingua-unihan-pinyin:dev-master
-    ```
 
 或者在你的项目 composer.json 加入：
 
-    ```javascript
     {
         "require": {
             "fayland/php-lingua-unihan-pinyin": "dev-master"
         }
     }
-    ```
 
 ### 设置
 
