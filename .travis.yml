@@ -10,10 +10,9 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
-  - which phpunit
-  - phpunit
+  - find .
 
-script: phpunit tests/TestCase.php
+script: phpunit -v tests/TestCase.php
 
 matrix:
   fast_finish: true
