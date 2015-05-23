@@ -10,9 +10,8 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
-  - find .
 
-script: phpunit -v tests/TestCase.php
+script: ./vendor/phpunit/phpunit/phpunit -v tests/TestCase.php
 
 matrix:
   fast_finish: true
